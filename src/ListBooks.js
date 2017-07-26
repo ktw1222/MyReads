@@ -4,12 +4,6 @@ import { Link } from 'react-router-dom'
 
 class ListBooks extends Component {
 
-  static bookshelves = [
-    { title: "currentlyReading" },
-    { title: "Want to Read" },
-    { title: "Read" }
-  ]
-
   render() {
     return (
       <div className="list-books">
@@ -18,12 +12,11 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            {ListBooks.bookshelves.map((bookshelf) => (
+            {Bookshelf.bookshelves.map((bookshelf) => (
               <Bookshelf
-                key={bookshelf.title}
-
-              />
-
+                title={bookshelf.title}
+                key={bookshelf.name}
+                name={bookshelf.name} />
             ))}
           </div>
         </div>

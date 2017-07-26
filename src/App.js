@@ -10,13 +10,20 @@ import Bookshelf from './Bookshelf'
 class BooksApp extends Component {
   state = {
     books: []
-    // showSearchPage: false
   }
 
   componentDidMount(){
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
+  }
+
+  updateBook = (book, shelf) => {
+    book.shelf = shelf;
+    BookAPI.update(book, shelf).then(() => {
+      const updateBooks = this.state.books.filter((b) => b.id !== book.id)
+      this.setState({books: updateBooks.concat([ book ])});
+    });
   }
 
   render() {
