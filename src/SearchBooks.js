@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class SearchBooks extends Component {
   render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a
+          <Link
+            to="/"
             className="close-search"
-            onClick={() => this.setState({ showSearchPage: false })}
-          >Close</a>
+          >Close</Link>
+
           <div className="search-books-input-wrapper">
             <input type="text" placeholder="Search by title or author"/>
           </div>
@@ -17,8 +19,8 @@ class SearchBooks extends Component {
           <ol className="books-grid"></ol>
         </div>
       </div>
-    )
-  }
+    );
+  };
 }
 
 export default SearchBooks
