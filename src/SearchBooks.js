@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
-import Book from './Book'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
+import Book from './Book';
+import PropTypes from 'prop-types';
 
 class SearchBooks extends Component {
   static propTypes = {
     moveBook: PropTypes.func.isRequired
-  }
+  };
 
   state = {
     books:[],
     query: ''
-  }
+  };
 
   updateQuery = (query) => {
     this.setState({ query })
@@ -21,22 +21,22 @@ class SearchBooks extends Component {
       const books = response.map((book) => {
         const foundBook = this.props.books.find(
           (bookInShelves) => (bookInShelves.id === book.id)
-        )
+        );
 
         if (foundBook) {
           book.shelf = foundBook.shelf
-        }
+        };
 
-        return book
-      })
+        return book;
+      });
 
       this.setState({ books })
-    })
-  }
+    });
+  };
 
   render() {
-    const { moveBook } = this.props
-    const { query, books } = this.state
+    const { moveBook } = this.props;
+    const { query, books } = this.state;
 
     return (
       <div className="search-books">
@@ -48,7 +48,7 @@ class SearchBooks extends Component {
 
           <div className="search-books-input-wrapper">
             <input
-              onChange={(e) => this.updateQuery(e.target.value)}
+              onChange={(event) => this.updateQuery(event.target.value)}
               value={query}
               type="text"
               placeholder="Search by title or author"
@@ -72,6 +72,6 @@ class SearchBooks extends Component {
       </div>
     );
   };
-}
+};
 
 export default SearchBooks

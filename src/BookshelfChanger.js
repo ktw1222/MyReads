@@ -21,7 +21,7 @@ class BookshelfChanger extends Component {
           moveBook(book, bookshelfName)
           }}>
 
-          <option value="none" disabled>Move to...</option>
+          <option value="none" disabled selected>Move to...</option>
             {Bookshelf.bookshelves.map((bookshelf) => ((
               <option key={bookshelf.name} value={bookshelf.name}>{bookshelf.title}</option>
             )))}

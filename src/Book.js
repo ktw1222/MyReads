@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import BookshelfChanger from './BookshelfChanger'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import BookshelfChanger from './BookshelfChanger';
+import PropTypes from 'prop-types';
 
 
 class Book extends Component {
   static proptypes = {
     book: PropTypes.object.isRequired,
     moveBook: PropTypes.func.isRequired,
-  }
+  };
 
   render() {
 
-    const { book, moveBook, name } = this.props
+    const { book, moveBook, name } = this.props;
 
     return (
       <div className="book">
@@ -34,9 +34,8 @@ class Book extends Component {
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{book.authors}</div>
       </div>
-
-    )
-  }
-}
+    );
+  };
+};
 
 export default Book
