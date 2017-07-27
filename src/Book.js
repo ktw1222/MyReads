@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Bookshelf from './Bookshelf'
+// import Bookshelf from './Bookshelf'
+import BookshelfChanger from './BookshelfChanger'
 
 
 class Book extends Component {
@@ -15,26 +16,18 @@ class Book extends Component {
             backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")`
           }}>
           </div>
-
-          <div className="book-shelf-changer">
-              <select value={this.props.bookshelfName} onChange={(event => {
-                let bookshelfName = event.target.value;
-                this.props.moveBook(this.props.book, bookshelfName)
-                })}>
-
-                <option value="none" disabled>Move to...</option>
-                {Bookshelf.bookshelves.map((bookshelf) => ((
-                  <option key={bookshelf.name} value={bookshelf.name}>{bookshelf.title}</option>
-                )))}
-
-
-                <option value="none">None</option>
-              </select>
-            </div>
+          <div>
+            <BookshelfChanger
+              book={this.props.book}
+              moveBook={this.props.moveBook}
+              bookshelfName={this.props.name}
+            />
           </div>
-          <div className="book-title">{this.props.title}</div>
-          <div className="book-authors">{this.props.authors}</div>
         </div>
+
+        <div className="book-title">{this.props.title}</div>
+        <div className="book-authors">{this.props.authors}</div>
+      </div>
 
     )
   }
