@@ -5,7 +5,7 @@ class Bookshelf extends Component {
 
   static bookshelves = [
     { title: "Currently Reading",
-      name: "currentylReading"
+      name: "currentlyReading"
     },
     { title: "Want to Read",
       name: "wantToRead"
