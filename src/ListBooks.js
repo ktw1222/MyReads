@@ -16,7 +16,10 @@ class ListBooks extends Component {
               <Bookshelf
                 title={bookshelf.title}
                 key={bookshelf.name}
-                name={bookshelf.name} />
+                name={bookshelf.name}
+                moveBook={this.props.moveBook}
+                books={this.props.books.filter((book) => 
+                  book.shelf === bookshelf.name)} />
             ))}
           </div>
         </div>
