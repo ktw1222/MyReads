@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
-// import Bookshelf from './Bookshelf'
 import BookshelfChanger from './BookshelfChanger'
+import PropTypes from 'prop-types'
 
 
 class Book extends Component {
+  static proptypes = {
+    book: PropTypes.object.isRequired,
+    moveBook: PropTypes.func.isRequired,
+  }
+
   render() {
 
+    const { book, moveBook, name } = this.props
 
     return (
       <div className="book">
@@ -13,20 +19,20 @@ class Book extends Component {
           <div className="book-cover" style={{
             width: 128,
             height: 193,
-            backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")`
+            backgroundImage: `url("${book.imageLinks.thumbnail}")`
           }}>
           </div>
           <div>
             <BookshelfChanger
-              book={this.props.book}
-              moveBook={this.props.moveBook}
-              bookshelfName={this.props.name}
+              book={book}
+              moveBook={moveBook}
+              bookshelfName={name}
             />
           </div>
         </div>
 
-        <div className="book-title">{this.props.book.title}</div>
-        <div className="book-authors">{this.props.book.authors}</div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
 
     )

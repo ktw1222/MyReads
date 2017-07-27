@@ -21,12 +21,12 @@ class BooksApp extends Component {
     book.shelf = shelf;
     BooksAPI.update({id: book.id}, shelf).then(() => {
       let books = this.state.books
-      let bookInData = this.state.books.find((dataBook) => {
+      let bookInData = books.find((dataBook) => {
         return dataBook.id === book.id
       })
 
       if (bookInData) {
-        books = this.state.books.map((mapBook) => {
+        books = books.map((mapBook) => {
           if (mapBook.id === book.id) {
             mapBook.shelf = shelf
           }
@@ -42,11 +42,14 @@ class BooksApp extends Component {
   }
 
   render() {
+
+    const { books } = this.state
+
     return (
       <div className="app">
         <Route exact path="/" render={() => (
           <ListBooks
-            books={this.state.books}
+            books={books}
             moveBook={this.moveBook}
 
           />
@@ -54,7 +57,7 @@ class BooksApp extends Component {
 
         <Route path="/search" render={() => (
           <SearchBooks
-            books={this.state.books}
+            books={books}
             moveBook={this.moveBook}
           />
 

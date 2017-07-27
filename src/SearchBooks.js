@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-
-
+import PropTypes from 'prop-types'
 
 class SearchBooks extends Component {
+  static propTypes = {
+    moveBook: PropTypes.func.isRequired
+  }
 
   state = {
     books:[],
@@ -15,10 +17,9 @@ class SearchBooks extends Component {
   updateQuery = (query) => {
     this.setState({ query })
 
-
     BooksAPI.search(query.trim()).then((response) => {
-      let books = response.map((book) => {
-      let foundBook = this.props.books.find(
+      const books = response.map((book) => {
+        const foundBook = this.props.books.find(
           (bookInShelves) => (bookInShelves.id === book.id)
         )
 
@@ -33,9 +34,10 @@ class SearchBooks extends Component {
     })
   }
 
-
-
   render() {
+    const { moveBook } = this.props
+    const { query, books } = this.state
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -47,7 +49,7 @@ class SearchBooks extends Component {
           <div className="search-books-input-wrapper">
             <input
               onChange={(e) => this.updateQuery(e.target.value)}
-              value={this.state.query}
+              value={query}
               type="text"
               placeholder="Search by title or author"
             />
@@ -56,11 +58,11 @@ class SearchBooks extends Component {
 
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.books.map((book) => (
+            {books.map((book) => (
               <li key={book.id}>
                 <Book
                   book={book}
-                  moveBook={this.props.moveBook}
+                  moveBook={moveBook}
                   bookshelfName={book.shelf}
                 />
               </li>

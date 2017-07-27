@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import Bookshelf from './Bookshelf'
+import PropTypes from 'prop-types'
 
 class BookshelfChanger extends Component {
-  render() {
-    return (
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    bookshelfName: PropTypes.string.isRequired,
+    moveBook: PropTypes.func.isRequired,
+  }
 
+  render() {
+    const { bookshelfName, book, moveBook } = this.props
+
+    return (
       <div className="book-shelf-changer">
-        <select value={this.props.bookshelfName} onChange={(event => {
-          let bookshelfName = event.target.value;
-          this.props.moveBook(this.props.book, bookshelfName)
-          })}>
+        <select
+          value={bookshelfName}
+          onChange={(event) => {
+          const bookshelfName = event.target.value;
+          moveBook(book, bookshelfName)
+          }}>
 
           <option value="none" disabled>Move to...</option>
             {Bookshelf.bookshelves.map((bookshelf) => ((
