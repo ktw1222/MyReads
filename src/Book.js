@@ -26,7 +26,7 @@ class Book extends Component {
             <BookshelfChanger
               book={book}
               moveBook={moveBook}
-              bookshelfName={name}
+              bookshelfName={book.shelf}
             />
           </div>
         </div>

@@ -19,9 +19,9 @@ class BookshelfChanger extends Component {
           onChange={(event) => {
           const bookshelfName = event.target.value;
           moveBook(book, bookshelfName)
-          }}>
+        }}>
 
-          <option value="none" disabled selected>Move to...</option>
+          <option value="none" disabled>Move to...</option>
             {Bookshelf.bookshelves.map((bookshelf) => ((
               <option key={bookshelf.name} value={bookshelf.name}>{bookshelf.title}</option>
             )))}
