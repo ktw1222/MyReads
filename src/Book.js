@@ -11,7 +11,7 @@ class Book extends Component {
 
   render() {
 
-    const { book, moveBook, name } = this.props;
+    const { book, moveBook} = this.props;
 
     return (
       <div className="book">
