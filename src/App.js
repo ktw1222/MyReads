@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import ListBooks from './ListBooks';
 import SearchBooks from './SearchBooks';
 
+const noMatch = () => {
+  return (
+    <div className="no-match"> 404 ERROR </div>
+  );
+};
 
 class BooksApp extends Component {
   state = {
@@ -18,26 +23,11 @@ class BooksApp extends Component {
   };
 
   moveBook = (book, shelf) => {
-    book.shelf = shelf;
-    BooksAPI.update({id: book.id}, shelf).then(() => {
-      let books = this.state.books;
-      let bookInData = books.find((dataBook) => {
-        return dataBook.id === book.id;
-      });
-
-      if (bookInData) {
-        books = books.map((mapBook) => {
-          if (mapBook.id === book.id) {
-            mapBook.shelf = shelf
-          };
-
-          return mapBook;
-        })
-      } else {
-        books = [...books, book]
-      };
-
-      this.setState({ books });
+    BooksAPI.update(book, shelf).then((s) => {
+      book.shelf = shelf
+      this.setState(
+        { books: this.state.books.filter((b) => book.id !== b.id).concat(book) }
+      );
     });
   };
 
@@ -47,19 +37,23 @@ class BooksApp extends Component {
 
     return (
       <div className="app">
-        <Route exact path="/" render={() => (
-          <ListBooks
-            books={books}
-            moveBook={this.moveBook}
-          />
-        )}/>
+        <Switch>
+          <Route exact path="/" render={() => (
+            <ListBooks
+              books={books}
+              moveBook={this.moveBook}
+            />
+          )}/>
 
-        <Route path="/search" render={() => (
-          <SearchBooks
-            books={books}
-            moveBook={this.moveBook}
-          />
-        )}/>
+          <Route path="/search" render={() => (
+            <SearchBooks
+              books={books}
+              moveBook={this.moveBook}
+            />
+          )}/>
+
+          <Route component={noMatch} />
+        </Switch>
       </div>
     );
   };

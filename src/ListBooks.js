@@ -1,16 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Bookshelf from './Bookshelf';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-class ListBooks extends Component {
-  static propTypes = {
-    books: PropTypes.array.isRequired,
-    moveBook: PropTypes.func.isRequired
-  };
-
-  render() {
-    const { moveBook, books } = this.props;
+const ListBooks = (props) => {
 
     return (
       <div className="list-books">
@@ -25,8 +18,8 @@ class ListBooks extends Component {
                 key={bookshelf.name}
                 title={bookshelf.title}
                 name={bookshelf.name}
-                moveBook={moveBook}
-                books={books.filter((book) =>
+                moveBook={props.moveBook}
+                books={props.books.filter((book) =>
                   book.shelf === bookshelf.name)}
               />
             ))}
@@ -39,8 +32,12 @@ class ListBooks extends Component {
           >Add a book</Link>
         </div>
       </div>
-    );
-  };
+    )
+};
+
+ListBooks.propTypes = {
+  books: PropTypes.array.isRequired,
+  moveBook: PropTypes.func.isRequired
 };
 
 export default ListBooks

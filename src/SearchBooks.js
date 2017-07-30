@@ -6,37 +6,33 @@ import PropTypes from 'prop-types';
 
 class SearchBooks extends Component {
   static propTypes = {
-    moveBook: PropTypes.func.isRequired
+    moveBook: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired
   };
 
   state = {
     books:[],
-    query: ''
+    query: ""
   };
 
   updateQuery = (query) => {
     this.setState({ query })
 
-    BooksAPI.search(query.trim()).then((response) => {
-      const books = response.map((book) => {
-        const foundBook = this.props.books.find(
-          (bookInShelves) => (bookInShelves.id === book.id)
-        );
+    BooksAPI.search(query).then((books) => {
 
-        if (foundBook) {
-          book.shelf = foundBook.shelf
+      if (this.state.query === query) {
+        if (typeof books === "undefined") {
+          books = []
         };
 
-        return book;
-      });
-
-      this.setState({ books })
-    });
-  };
+        this.setState({ books })
+      }
+    })
+};
 
   render() {
     const { moveBook } = this.props;
-    const { query, books } = this.state;
+    const { books } = this.state;
 
     return (
       <div className="search-books">
@@ -49,7 +45,7 @@ class SearchBooks extends Component {
           <div className="search-books-input-wrapper">
             <input
               onChange={(event) => this.updateQuery(event.target.value)}
-              value={query}
+              value={this.updateQuery.query}
               type="text"
               placeholder="Search by title or author"
             />
@@ -58,15 +54,19 @@ class SearchBooks extends Component {
 
         <div className="search-books-results">
           <ol className="books-grid">
-            {books.map((book) => (
-              <li key={book.id}>
-                <Book
-                  book={book}
-                  moveBook={moveBook}
-                  bookshelfName={book.shelf}
-                />
-              </li>
-            ))}
+            { books.length > 0 ?
+              books.map((book) => {
+                return (
+                  <li key={book.id}>
+                    <Book
+                      book={book}
+                      moveBook={moveBook}
+                      bookshelfName={book.shelf}
+                    />
+                  </li>
+                )
+              }) : (<div className="no-result">No Result</div>)
+            }
           </ol>
         </div>
       </div>

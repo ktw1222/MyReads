@@ -7,6 +7,10 @@ body {
 body, .app {
   background: white;
 }
+.no-match {
+  font-size: 50px;
+  font-weight: bold;
+}
 
 /* main page */
 
