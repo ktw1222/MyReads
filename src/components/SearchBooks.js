@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from '../BooksAPI';
 import Book from './Book';
 import PropTypes from 'prop-types';
 
@@ -16,19 +16,19 @@ class SearchBooks extends Component {
   };
 
   updateQuery = (query) => {
-    if (!query) {
+    if (!query || query === "") {
       this.setState({ books: [] });
     } else {
       this.setState({ query });
 
       BooksAPI.search(query).then((response) => {
-        let books = [];
+        let apiBooks = [];
 
         if (Array.isArray(response)){
-          books = response;
+          apiBooks = response;
         };
 
-        let searchBooks = books.map((book) => {
+        const searchBooks = apiBooks.map((book) => {
           const foundBook = this.props.books.find(
             (bookshelvesBook) => bookshelvesBook.id === book.id
           );

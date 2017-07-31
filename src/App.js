@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
-import ListBooks from './ListBooks';
-import SearchBooks from './SearchBooks';
+import ListBooks from './components/ListBooks';
+import SearchBooks from './components/SearchBooks';
 
 const noMatch = () => {
   return (
